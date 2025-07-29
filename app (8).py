@@ -3,8 +3,8 @@ import streamlit as st
 import joblib
 
 # Load the model and vectorizer
-model = joblib.load('logistic_regression_model.pkl')
-vectorizer = joblib.load('tfidf_vectorizer.pkl')
+model = joblib.load('logistic_regression_model(3).pkl')
+vectorizer = joblib.load('tfidf_vectorizer(3).pkl')
 
 st.title('Movie Review Sentiment Analysis')
 review = st.text_area('Enter a movie review:')
