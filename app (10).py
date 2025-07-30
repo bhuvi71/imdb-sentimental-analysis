@@ -41,7 +41,7 @@ def set_background(image_path):
 set_background("background_image.jpg")  # ✅ Updated file name
 
 # --- Load Model and Vectorizer ---
-model = joblib.load("logistic_regression.pkl")
+model = joblib.load("logistic_regression_model.pkl")
 vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
 # --- Title ---
