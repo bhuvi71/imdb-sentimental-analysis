@@ -5,7 +5,7 @@ import pandas as pd
 import random
 
 # --- Page Config ---
-st.set_page_config(page_title="🎬 Advanced Sentiment Analyzer", layout="wide")
+st.set_page_config(page_title="🎬 SENTIMENTAL ANALYSIS ON IMDB MOVIE REVIEWS", layout="wide")
 
 # --- Background ---
 def set_background(image_path):
