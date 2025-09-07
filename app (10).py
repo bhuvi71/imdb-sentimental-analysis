@@ -88,7 +88,7 @@ elif page == "📝 Analyze Review":
 
             # Probability chart
             prob_dict = {label: prob for label, prob in zip(model.classes_, probs)}
-            import altair as alt
+import altair as alt
 
 # Convert prob_dict to DataFrame
 prob_df = pd.DataFrame({
