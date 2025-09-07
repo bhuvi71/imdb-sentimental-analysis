@@ -41,12 +41,12 @@ model = joblib.load("logistic_regression_model.pkl")
 vectorizer = joblib.load("tfidf_vectorizer.pkl")
 
 # --- Sidebar Navigation ---
-st.sidebar.title("🌐 Navigation")
+st.sidebar.title("")
 page = st.sidebar.radio("Go to:", ["🏠 Home", "📝 Analyze Review", "📂 Batch Analysis", "ℹ️ About"])
 
 # --- Home ---
 if page == "🏠 Home":
-    st.markdown('<div class="title-text">🎬 Advanced Movie Review Sentiment Analyzer</div>', unsafe_allow_html=True)
+    st.markdown('<div class="title-text">🎬 SENTIMENTAL ANALYSIS ON IMDB MOVIE REVIEWS</div>', unsafe_allow_html=True)
     st.write("""
     Welcome! This app analyzes movie reviews and predicts whether they are **Positive, Negative**.
     
