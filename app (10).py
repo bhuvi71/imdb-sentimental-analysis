@@ -88,7 +88,29 @@ elif page == "📝 Analyze Review":
 
             # Probability chart
             prob_dict = {label: prob for label, prob in zip(model.classes_, probs)}
-            st.bar_chart(prob_dict)
+            import altair as alt
+
+# Convert prob_dict to DataFrame
+prob_df = pd.DataFrame({
+    "Sentiment": list(prob_dict.keys()),
+    "Probability": list(prob_dict.values())
+})
+
+# Create custom bar chart
+chart = (
+    alt.Chart(prob_df)
+    .mark_bar(cornerRadius=8, size=60)  # Rounded, thicker bars
+    .encode(
+        x=alt.X("Sentiment", sort=None, axis=alt.Axis(labelAngle=0)),
+        y=alt.Y("Probability", scale=alt.Scale(domain=[0, 1])),
+        color=alt.Color("Sentiment", scale=alt.Scale(scheme="set2")),
+        tooltip=["Sentiment", "Probability"]
+    )
+    .properties(width=500, height=400, title="Sentiment Prediction Probabilities")
+)
+
+st.altair_chart(chart, use_container_width=True)
+
         else:
             st.warning("⚠️ Please enter or generate a review.")
 
