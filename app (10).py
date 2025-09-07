@@ -3,6 +3,7 @@ import joblib
 import base64
 import pandas as pd
 import random
+import altair as alt
 
 # --- Page Config ---
 st.set_page_config(page_title="🎬 SENTIMENTAL ANALYSIS ON IMDB MOVIE REVIEWS", layout="wide")
@@ -56,8 +57,6 @@ if page == "🏠 Home":
     - Sentiment probability charts  
     - Recent history tracking  
     - Downloadable results  
-    
-    
     """)
 
 # --- Analyze Single Review ---
@@ -71,12 +70,10 @@ elif page == "📝 Analyze Review":
         "Neutral": "The movie was okay, nothing too special but not terrible either."
     }
 
-    col1, col2 = st.columns([2,1])
+    col1, col2 = st.columns([2, 1])
 
     with col1:
         review = st.text_area("✍️ Write your movie review here:", height=150)
-
-
 
     if st.button("🔍 Analyze"):
         if review.strip():
@@ -88,30 +85,25 @@ elif page == "📝 Analyze Review":
 
             # Probability chart
             prob_dict = {label: prob for label, prob in zip(model.classes_, probs)}
-import altair as alt
 
-# Convert prob_dict to DataFrame
-prob_df = pd.DataFrame({
-    "Sentiment": list(prob_dict.keys()),
-    "Probability": list(prob_dict.values())
-})
+            prob_df = pd.DataFrame({
+                "Sentiment": list(prob_dict.keys()),
+                "Probability": list(prob_dict.values())
+            })
 
-# Create custom bar chart
-chart = (
-    alt.Chart(prob_df)
-    .mark_bar(cornerRadius=8, size=60)  # Rounded, thicker bars
-    .encode(
-        x=alt.X("Sentiment", sort=None, axis=alt.Axis(labelAngle=0)),
-        y=alt.Y("Probability", scale=alt.Scale(domain=[0, 1])),
-        color=alt.Color("Sentiment", scale=alt.Scale(scheme="set2")),
-        tooltip=["Sentiment", "Probability"]
-    )
-    .properties(width=500, height=400, title="Sentiment Prediction Probabilities")
-)
+            chart = (
+                alt.Chart(prob_df)
+                .mark_bar(cornerRadius=8, size=60)  # Rounded, thicker bars
+                .encode(
+                    x=alt.X("Sentiment", sort=None, axis=alt.Axis(labelAngle=0)),
+                    y=alt.Y("Probability", scale=alt.Scale(domain=[0, 1])),
+                    color=alt.Color("Sentiment", scale=alt.Scale(scheme="set2")),
+                    tooltip=["Sentiment", "Probability"]
+                )
+                .properties(width=500, height=400, title="Sentiment Prediction Probabilities")
+            )
 
-st.altair_chart(chart, use_container_width=True)
-
-
+            st.altair_chart(chart, use_container_width=True)
 
 # --- Batch Analysis ---
 elif page == "📂 Batch Analysis":
@@ -124,6 +116,7 @@ elif page == "📂 Batch Analysis":
             df = pd.read_csv(uploaded_file)
             if "review" not in df.columns:
                 st.error("CSV must have a column named 'review'")
+                reviews = []
             else:
                 reviews = df["review"].astype(str).tolist()
         else:
@@ -132,7 +125,6 @@ elif page == "📂 Batch Analysis":
         if reviews:
             transformed = vectorizer.transform(reviews)
             preds = model.predict(transformed)
-            probs = model.predict_proba(transformed)
 
             results_df = pd.DataFrame({
                 "Review": reviews,
@@ -165,6 +157,7 @@ elif page == "ℹ️ About":
     - Support multilingual reviews  
     - Deploy with a database for storing user feedback  
     """)
+
 
 
         
