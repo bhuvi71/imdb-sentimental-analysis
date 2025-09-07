@@ -111,8 +111,7 @@ chart = (
 
 st.altair_chart(chart, use_container_width=True)
 
-        else:
-            st.warning("⚠️ Please enter or generate a review.")
+
 
 # --- Batch Analysis ---
 elif page == "📂 Batch Analysis":
