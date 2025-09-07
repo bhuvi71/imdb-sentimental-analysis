@@ -48,7 +48,7 @@ page = st.sidebar.radio("Go to:", ["🏠 Home", "📝 Analyze Review", "📂 Bat
 if page == "🏠 Home":
     st.markdown('<div class="title-text">🎬 Advanced Movie Review Sentiment Analyzer</div>', unsafe_allow_html=True)
     st.write("""
-    Welcome! This app analyzes movie reviews and predicts whether they are **Positive, Negative, or Neutral**.
+    Welcome! This app analyzes movie reviews and predicts whether they are **Positive, Negative**.
     
     ### 🚀 Features:
     - Single review analysis  
@@ -57,7 +57,7 @@ if page == "🏠 Home":
     - Recent history tracking  
     - Downloadable results  
     
-    👉 Use the sidebar to navigate between pages!
+    
     """)
 
 # --- Analyze Single Review ---
@@ -76,12 +76,7 @@ elif page == "📝 Analyze Review":
     with col1:
         review = st.text_area("✍️ Write your movie review here:", height=150)
 
-    with col2:
-        if st.button("🎲 Random Review"):
-            review = random.choice(list(samples.values()))
-            st.session_state["random_review"] = review
-        if "random_review" in st.session_state:
-            review = st.session_state["random_review"]
+
 
     if st.button("🔍 Analyze"):
         if review.strip():
